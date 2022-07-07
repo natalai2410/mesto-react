@@ -7,7 +7,7 @@ function PopupWithForm(props) {
 
     // возращвет eact-элемент
     return (
-        <div className={`popup popup_${props.name}`}>
+        <div className={`popup popup_${props.name}  ${props.isOpen ? `popup_opened`: ""}`} onClick={props.onClose}>
             {/*//элементы внешнего контейнера*/}
             <div className="popup__content popup__content_common">
                 {/*//элементы внутреннего контейнера*/}
