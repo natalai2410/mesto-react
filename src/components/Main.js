@@ -43,7 +43,6 @@ function Main(props) {
                         onClick={props.onAddPlace}/>
             </section>
 
-            {/*разметка карточки*/}
             <section className="places">
                 <ul className="places__list">
                     {cards.map((card, id) => (

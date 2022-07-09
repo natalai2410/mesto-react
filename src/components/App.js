@@ -12,12 +12,11 @@ import ImagePopup from "./ImagePopup";
  * @return {boolean}
  */
 function App() {
-    //переменные состояния, отвечающие за видимость трёх попапов
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState(null);
 
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -121,10 +120,9 @@ function App() {
                 </PopupWithForm>
                 <PopupWithForm name="delete-card" title='Вы уверены?' buttonText='Да'>
                 </PopupWithForm>
-                <ImagePopup>
+                <ImagePopup
                     card={selectedCard}
                     onClose={closeAllPopups}
-                </ImagePopup>
                 />
             </div>
         </>

@@ -3,7 +3,6 @@ import '../index.css';
 
 function Card(props) {
 
-    {/*Обработчик handleCardClick должен вызываться из компонента Card*/}
     function handleClick() {
         props.onCardClick(props.card);
         console.log(props.card);
