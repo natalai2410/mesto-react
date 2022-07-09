@@ -78,7 +78,7 @@ function App() {
                         </label>
                     </PopupWithForm>
                     <PopupWithForm name="new-card" title='Новое место' buttonText='Сохранить'
-                                   isOpen={isEditAvatarPopupOpen}
+                                   isOpen={isAddPlacePopupOpen}
                                    onClose={closeAllPopups}>
                         <label className="popup__field">
                             <input className="popup__input popup__input_place"
@@ -105,7 +105,7 @@ function App() {
                         </label>
                     </PopupWithForm>
                     <PopupWithForm name="edit-avatar" title='Обновить аватар' buttonText='Сохранить'
-                                   isOpen={isAddPlacePopupOpen}
+                                   isOpen={isEditAvatarPopupOpen}
                                    onClose={closeAllPopups}>
                         <label className="popup__field">
                             <input className="popup__input popup__input_avatar-link"
