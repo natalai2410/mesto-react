@@ -21,6 +21,6 @@
 
 # Какие команды нужно выполнить для сборки и запуска проекта?
 
- - Клонировать репозиторий: git clone https://github.com/ia-stepanov/mesto-react.git
+ - Клонировать репозиторий: git clone https://github.com/natalai2410/mesto-react
  - Установить зависимости:  npm install
  - Запустить приложение:    npm run start
