@@ -4,7 +4,7 @@ import '../index.css';
 function PopupWithForm(props) {
 
     return (
-        <div className={`popup popup_${props.name}  ${props.isOpen ? `popup_opened` : ""}`} onClick={props.onClose}>
+        <div className={`popup popup_${props.name}  ${props.isOpen && 'popup_opened'}`} onClick={props.onClose}>
             <div className="popup__content popup__content_common">
                 <button className="popup__btn-close" type="button" aria-label="Выйти из попапа"/>
                 <h2 className="popup__title">{props.title}</h2>
