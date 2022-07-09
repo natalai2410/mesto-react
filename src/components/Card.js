@@ -11,7 +11,7 @@ function Card(props) {
     return (
         <li className="place-item">
             <button className="place-item__bin" type="button" aria-label="Корзина"/>
-            <img src={props.link} className="place-item__image" alt="картинка_место_загрузка" onClick={handleClick}/>
+            <img src={props.link} className="place-item__image" alt={props.name} onClick={handleClick}/>
             <div className="place-item__content">
                 <h2 className="place-item__title ellipsis-block">{props.name}</h2>
                 <div className="place-item__content-like">
