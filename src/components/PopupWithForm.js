@@ -1,13 +1,12 @@
 import React from 'react';
-
 import '../index.css';
 
 //Проще всего объявить React-компонент как функцию:
 function PopupWithForm(props) {
 
-    // возращвет eact-элемент
+    // возращвет кeact-элемент
     return (
-        <div className={`popup popup_${props.name}  ${props.isOpen ? `popup_opened`: ""}`} onClick={props.onClose}>
+        <div className={`popup popup_${props.name}  ${props.isOpen ? `popup_opened` : ""}`} onClick={props.onClose}>
             {/*//элементы внешнего контейнера*/}
             <div className="popup__content popup__content_common">
                 {/*//элементы внутреннего контейнера*/}

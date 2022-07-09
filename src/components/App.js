@@ -6,6 +6,7 @@ import React from "react";
 
 
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from "./ImagePopup";
 
 /**
  * @return {boolean}
@@ -15,7 +16,7 @@ function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -29,10 +30,15 @@ function App() {
         setIsAddPlacePopupOpen(true);
     }
 
+    function handleCardClick(card) {
+        setSelectedCard(card);
+    }
+
     function closeAllPopups() {
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
+        setSelectedCard(null);
     }
 
     return (
@@ -43,8 +49,8 @@ function App() {
                     onEditProfile={handleEditProfileClick}
                     onAddPlace={handleAddPlaceClick}
                     onEditAvatar={handleEditAvatarClick}
-
-            />
+                    onCardClick={handleCardClick}
+                />
                 < Footer/>
                 <PopupWithForm name="edit-profile" title='Редактировать профиль' buttonText='Сохранить'
                                isOpen={isEditProfilePopupOpen}
@@ -114,21 +120,11 @@ function App() {
                 </PopupWithForm>
                 <PopupWithForm name="delete-card" title='Вы уверены?' buttonText='Да'>
                 </PopupWithForm>
-
-
-                {/*<template className="template" id="template-place-item">*/}
-                {/*    <li className="place-item">*/}
-                {/*        <button className="place-item__bin" type="button" aria-label="Корзина"/>*/}
-                {/*        <img src="#" className="place-item__image" alt="картинка_место_загрузка"/>*/}
-                {/*        <div className="place-item__content">*/}
-                {/*            <h2 className="place-item__title ellipsis-block"/>*/}
-                {/*            <div className="place-item__content-like">*/}
-                {/*                <button className="place-item__like" type="button" aria-label="Лайк"/>*/}
-                {/*                <p className="place-item__count-like">0</p>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </li>*/}
-                {/*</template>*/}
+                <ImagePopup>
+                    card={selectedCard}
+                    onClose={closeAllPopups}
+                </ImagePopup>
+                />
             </div>
         </>
     );
