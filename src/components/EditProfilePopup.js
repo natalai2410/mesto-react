@@ -31,9 +31,13 @@ function EditProfilePopup(props) {
         e.preventDefault();
 
         // Передаём значения управляемых компонентов во внешний обработчик
+        // props.onUpdateUser({
+        //     input_title: name,
+        //     input_job: description,
+        // });
         props.onUpdateUser({
-            input_title: name,
-            input_job: description,
+            name,
+            about: description,
         });
     }
 
@@ -47,7 +51,7 @@ function EditProfilePopup(props) {
                        type="text"
                        name="input-title"
                        value={name}
-                       id="input_title"
+                       id="input-title"
                        required
                        minLength="2"
                        maxLength="40"
@@ -61,7 +65,7 @@ function EditProfilePopup(props) {
                        type="text"
                        name='input-job'
                        value={description}
-                       id="input_job"
+                       id="input-job"
                        required
                        minLength="2"
                        maxLength="200"

@@ -14,6 +14,7 @@ import {api} from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 
 
@@ -35,7 +36,6 @@ function App() {
     React.useEffect(() => {
         Promise.all([api.getUserInfo()])
             .then( ([userData])=> {
-                // console.log( 'name ' + userData.name);
                 setCurrentUser(userData);
             })
             .catch((err) => {
@@ -43,7 +43,8 @@ function App() {
             });
     }, []);
 
-    function handleEditAvatarClick() {
+    function handleEditAvatarClick(e) {
+        e.stopPropagation();
         setIsEditAvatarPopupOpen(true);
     }
 
@@ -67,9 +68,7 @@ function App() {
     }
     
     function handleUpdateUser (data) {
-        console.log(data.input_title);
-        console.log(data.input_job);
-        api.sendUserInfo({name: data.input_title, job: data.input_job})
+        api.sendUserInfo(data.name, data.about)
             .then((newUser) => {
             setCurrentUser(newUser);
             closeAllPopups();
@@ -77,6 +76,17 @@ function App() {
             console.error(err);
         });
     }
+
+    function handleUpdateAvatar(data) {
+        api.changeAvatar(data.avatar)
+            .then((newAvatar) => {
+                setCurrentUser(newAvatar);
+                closeAllPopups();
+            }).catch((err) => {
+            console.error(err);
+        });
+    }
+
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -95,31 +105,6 @@ function App() {
                         onClose={closeAllPopups}
                         onUpdateUser={handleUpdateUser}
                     />
-                    {/*<PopupWithForm name="edit-profile" title='Редактировать профиль' buttonText='Сохранить'*/}
-                    {/*               isOpen={isEditProfilePopupOpen}*/}
-                    {/*               onClose={closeAllPopups}>*/}
-                    {/*    <label className="popup__field">*/}
-                    {/*        <input className="popup__input popup__input_title"*/}
-                    {/*               type="text"*/}
-                    {/*               name='input-title'*/}
-                    {/*               id="input-title"*/}
-                    {/*               required*/}
-                    {/*               minLength="2"*/}
-                    {/*               maxLength="40"/>*/}
-                    {/*        <span className="popup__error"*/}
-                    {/*              id="input-title-error"/>*/}
-                    {/*    </label>*/}
-                    {/*    <label className="popup__field">*/}
-                    {/*        <input className="popup__input popup__input_job"*/}
-                    {/*               type="text" name='input-job'*/}
-                    {/*               id="input-job"*/}
-                    {/*               required*/}
-                    {/*               minLength="2"*/}
-                    {/*               maxLength="200"/>*/}
-                    {/*        <span className="popup__error"*/}
-                    {/*              id="input-job-error"/>*/}
-                    {/*    </label>*/}
-                    {/*</PopupWithForm>*/}
                     <PopupWithForm name="new-card" title='Новое место' buttonText='Сохранить'
                                    isOpen={isAddPlacePopupOpen}
                                    onClose={closeAllPopups}>
@@ -147,20 +132,11 @@ function App() {
                                   id="input-link-error"/>
                         </label>
                     </PopupWithForm>
-                    <PopupWithForm name="edit-avatar" title='Обновить аватар' buttonText='Сохранить'
-                                   isOpen={isEditAvatarPopupOpen}
-                                   onClose={closeAllPopups}>
-                        <label className="popup__field">
-                            <input className="popup__input popup__input_avatar-link"
-                                   type="url"
-                                   name='avatar-link'
-                                   placeholder="Ссылка на картинку"
-                                   id="avatar-link"
-                                   required/>
-                            <span className="popup__error"
-                                  id="avatar-link-error"/>
-                        </label>
-                    </PopupWithForm>
+                    <EditAvatarPopup
+                        isOpen={isEditAvatarPopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateAvatar={handleUpdateAvatar}
+                    />
                     <PopupWithForm name="delete-card" title='Вы уверены?' buttonText='Да'>
                     </PopupWithForm>
                     <ImagePopup
