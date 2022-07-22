@@ -3,19 +3,18 @@ import '../index.css';
 import {api} from '../utils/Api';
 import Card from './Card';
 
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
     const [cards, setCards] = React.useState([]);
+    //Подписываемся на контекст currentUser
+    const currentUser = React.useContext(CurrentUserContext);
 
     React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([userData, cards]) => {
-                setUserName(userData.name);
-                setUserDescription(userData.about);
-                setUserAvatar(userData.avatar);
+        Promise.all([api.getInitialCards()])
+            .then(([ cards]) => {
+
                 setCards([...cards]);
             })
             .catch((err) => {
@@ -28,15 +27,15 @@ function Main(props) {
             <section className="profile">
                 <div className="profile__avatar">
                     <div className="profile__user">
-                        <img className="profile__image" alt="Аватар" src={userAvatar}/>
+                        <img className="profile__image" alt="Аватар" src={currentUser.avatar}/>
                         <div className="profile__overlay" onClick={props.onEditAvatar}/>
                     </div>
                     <div className="profile__text">
-                        <h1 className="profile__title ellipsis-block">{userName}</h1>
+                        <h1 className="profile__title ellipsis-block">{currentUser.name}</h1>
                         <button className="profile__btn-edit"
                                 type="button"
                                 aria-label="Редактировать информацию о профиле" onClick={props.onEditProfile}/>
-                        <p className="profile__subtitle ellipsis-block">{userDescription}</p>
+                        <p className="profile__subtitle ellipsis-block">{currentUser.about}</p>
                     </div>
                 </div>
                 <button className="profile__btn-add" type="button" aria-label="Добавить новую карточку"
@@ -45,7 +44,7 @@ function Main(props) {
 
             <section className="places">
                 <ul className="places__list">
-                    {cards.map((card, _id) => (
+                    {cards.map((card) => (
                         <Card
                             key={card._id}
                             card={card}

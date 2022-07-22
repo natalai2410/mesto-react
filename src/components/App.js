@@ -7,6 +7,13 @@ import React from "react";
 
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from "./ImagePopup";
+import {api} from "../utils/Api";
+
+
+//4 экспортируйте из ../contexts/CurrentUserContext CurrentUserContext - объект контента
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+
 
 /**
  * @return {boolean}
@@ -17,6 +24,22 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 
     const [selectedCard, setSelectedCard] = React.useState(null);
+
+  //1 В компоненте App создайте переменную состояния currentUser  в useState - объект
+    const  [ currentUser, setCurrentUser] = React.useState({});
+
+
+    //2 эффект при монтировании, который будет вызывать api.getUserInfo и обновлять стейт-переменную из полученного значения.
+    React.useEffect(() => {
+        Promise.all([api.getUserInfo()])
+            .then( ([userData])=> {
+                // console.log( 'name ' + userData.name);
+                setCurrentUser(userData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -42,6 +65,7 @@ function App() {
     }
 
     return (
+        <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <div className="page__content">
                     < Header/>
@@ -126,6 +150,7 @@ function App() {
                     />
                 </div>
             </div>
+        </CurrentUserContext.Provider>
     );
 }
 

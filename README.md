@@ -24,3 +24,8 @@
  - Клонировать репозиторий: git clone https://github.com/natalai2410/mesto-react
  - Установить зависимости:  npm install
  - Запустить приложение:    npm run start
+
+
+#ССылка на сайт в  сети:  
+
+https://natalai2410.github.io/mesto-react/
