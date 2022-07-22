@@ -13,6 +13,8 @@ import {api} from "../utils/Api";
 //4 экспортируйте из ../contexts/CurrentUserContext CurrentUserContext - объект контента
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+import EditProfilePopup from "./EditProfilePopup";
+
 
 
 /**
@@ -63,6 +65,18 @@ function App() {
         setIsAddPlacePopupOpen(false);
         setSelectedCard(null);
     }
+    
+    function handleUpdateUser (data) {
+        console.log(data.input_title);
+        console.log(data.input_job);
+        api.sendUserInfo({name: data.input_title, job: data.input_job})
+            .then((newUser) => {
+            setCurrentUser(newUser);
+            closeAllPopups();
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -76,31 +90,36 @@ function App() {
                         onCardClick={handleCardClick}
                     />
                     < Footer/>
-                    <PopupWithForm name="edit-profile" title='Редактировать профиль' buttonText='Сохранить'
-                                   isOpen={isEditProfilePopupOpen}
-                                   onClose={closeAllPopups}>
-                        <label className="popup__field">
-                            <input className="popup__input popup__input_title"
-                                   type="text"
-                                   name='input-title'
-                                   id="input-title"
-                                   required
-                                   minLength="2"
-                                   maxLength="40"/>
-                            <span className="popup__error"
-                                  id="input-title-error"/>
-                        </label>
-                        <label className="popup__field">
-                            <input className="popup__input popup__input_job"
-                                   type="text" name='input-job'
-                                   id="input-job"
-                                   required
-                                   minLength="2"
-                                   maxLength="200"/>
-                            <span className="popup__error"
-                                  id="input-job-error"/>
-                        </label>
-                    </PopupWithForm>
+                    <EditProfilePopup
+                        isOpen={isEditProfilePopupOpen}
+                        onClose={closeAllPopups}
+                        onUpdateUser={handleUpdateUser}
+                    />
+                    {/*<PopupWithForm name="edit-profile" title='Редактировать профиль' buttonText='Сохранить'*/}
+                    {/*               isOpen={isEditProfilePopupOpen}*/}
+                    {/*               onClose={closeAllPopups}>*/}
+                    {/*    <label className="popup__field">*/}
+                    {/*        <input className="popup__input popup__input_title"*/}
+                    {/*               type="text"*/}
+                    {/*               name='input-title'*/}
+                    {/*               id="input-title"*/}
+                    {/*               required*/}
+                    {/*               minLength="2"*/}
+                    {/*               maxLength="40"/>*/}
+                    {/*        <span className="popup__error"*/}
+                    {/*              id="input-title-error"/>*/}
+                    {/*    </label>*/}
+                    {/*    <label className="popup__field">*/}
+                    {/*        <input className="popup__input popup__input_job"*/}
+                    {/*               type="text" name='input-job'*/}
+                    {/*               id="input-job"*/}
+                    {/*               required*/}
+                    {/*               minLength="2"*/}
+                    {/*               maxLength="200"/>*/}
+                    {/*        <span className="popup__error"*/}
+                    {/*              id="input-job-error"/>*/}
+                    {/*    </label>*/}
+                    {/*</PopupWithForm>*/}
                     <PopupWithForm name="new-card" title='Новое место' buttonText='Сохранить'
                                    isOpen={isAddPlacePopupOpen}
                                    onClose={closeAllPopups}>
