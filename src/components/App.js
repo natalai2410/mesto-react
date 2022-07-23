@@ -87,8 +87,11 @@ function App() {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
 
         if (!isLiked) {
-        api.putLike(card._id, !isLiked).then((newCard) => {
+        api.putLike(card._id, !isLiked)
+            .then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        }).catch((err) => {
+            console.error(err);
         });
         } else {
             api.deleteLike(card._id).then((newCard) => {
@@ -108,8 +111,6 @@ function App() {
     }
 
     function handleAddPlaceSubmit(data) {
-        console.log(data.name);
-        console.log(data.link);
         api.addNewCard( data.name,  data.link,)
             .then((newCard) => {
             setCards([newCard, ...cards]);
