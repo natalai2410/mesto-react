@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
@@ -10,9 +10,8 @@ function Card(props) {
     function handleClick() {
         props.onCardClick(props.card);
     }
-  //2  Также добавьте в Card обработчик клика handleLikeClick
+
     function handleLikeClick() {
-        //3 и вызовите из него onCardLike
         props.onCardLike(props.card);
     }
 
@@ -30,13 +29,14 @@ function Card(props) {
 
     return (
         <li className="place-item">
-            <button className= {cardDeleteButtonClassName} type="button" aria-label="Корзина" onClick={handleDeleteClick}/>
+            <button className={cardDeleteButtonClassName} type="button" aria-label="Корзина"
+                    onClick={handleDeleteClick}/>
             <img src={props.link} className="place-item__image" alt={props.name} onClick={handleClick}/>
             <div className="place-item__content">
                 <h2 className="place-item__title ellipsis-block">{props.name}</h2>
                 <div className="place-item__content-like">
-                    {/*1.Теперь нужно добавить пропс onCardLike*/}
-                    <button className={cardLikeButtonClassName} type="button" aria-label="Лайк" onClick={handleLikeClick}/>
+                    <button className={cardLikeButtonClassName} type="button" aria-label="Лайк"
+                            onClick={handleLikeClick}/>
                     <p className="place-item__count-like">{props.likes}</p>
                 </div>
             </div>

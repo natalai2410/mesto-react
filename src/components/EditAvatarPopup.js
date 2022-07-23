@@ -8,7 +8,7 @@ function EditAvatarPopup(props) {
         e.preventDefault();
 
         props.onUpdateAvatar({
-            avatar: avatarRef.current.value/* Значение инпута, полученное с помощью рефа */,
+            avatar: avatarRef.current.value
         });
     }
 
@@ -16,23 +16,24 @@ function EditAvatarPopup(props) {
         avatarRef.current.value = '';
     }, [props.isOpen]);
 
-    return(
+    return (
         <PopupWithForm name="edit-avatar" title='Обновить аватар' buttonText='Сохранить'
                        isOpen={props.isOpen}
                        onClose={props.onClose}
-                       onSubmit={handleSubmit}>
-        <label className="popup__field">
-            <input className="popup__input popup__input_avatar-link"
-                   type="url"
-                   name='avatar-link'
-                   placeholder="Ссылка на картинку"
-                   id="avatar-link"
-                   ref={avatarRef}
-                   required/>
-            <span className="popup__error"
-                  id="avatar-link-error"/>
-        </label>
-    </PopupWithForm>
+                       onSubmit={handleSubmit}
+                       onCloseCross={props.onCloseCross}>
+            <label className="popup__field">
+                <input className="popup__input popup__input_avatar-link"
+                       type="url"
+                       name='avatar-link'
+                       placeholder="Ссылка на картинку"
+                       id="avatar-link"
+                       ref={avatarRef}
+                       required/>
+                <span className="popup__error"
+                      id="avatar-link-error"/>
+            </label>
+        </PopupWithForm>
     )
 }
 

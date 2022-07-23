@@ -2,7 +2,6 @@ import React from 'react';
 import {baseUrl} from '../utils/constants';
 
 
-
 class Api {
     constructor(options) {
         this._baseUrl = options.baseUrl;
@@ -49,7 +48,7 @@ class Api {
     };
 
     addNewCard = (name, link) => {
-         return fetch(`${this._baseUrl}cards`, {
+        return fetch(`${this._baseUrl}cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -105,7 +104,6 @@ class Api {
     };
 }
 
-//экспортируйте  экземпляр класса AIP вместо самого класса.
 export const api = new Api({
     baseUrl: baseUrl,
     headers: {
